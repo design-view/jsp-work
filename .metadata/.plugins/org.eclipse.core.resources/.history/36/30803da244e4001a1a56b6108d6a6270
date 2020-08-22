@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="layout/header.jsp" %>
+<% 
+	if(session.getAttribute("auth") == null){
+%>
+<script>
+	alert("인증되지 않았습니다.");
+</script>
+<% 
+		response.sendRedirect("main.jsp");
+		return;
+	}
+
+	boolean isLogin = (boolean) session.getAttribute("auth");
+	//어떤값이 들어올지 몰라서 오브젝트 타입으로 받은 뒤 블린형으로 변경해줘야함.--> 다운케스팅
+%>
+
+
+	<h1>회원정보페이지</h1>
+	
+<%@ include file="layout/footer.jsp" %>	
+	
