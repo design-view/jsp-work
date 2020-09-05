@@ -4733,4 +4733,11 @@
 		<servlet-name>frontController</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	 <description>MySQL Test App</description>
+  <resource-ref>
+      <description>DB Connection</description>
+      <res-ref-name>jdbc/TestDB</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+  </resource-ref>
 </web-app>
