@@ -103,7 +103,7 @@
 				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
 				
-			<Context docBase="cos3" path="/cos3" reloadable="true" source="org.eclipse.jst.jee.server:cos3"/></Host>
+			<Context docBase="cos3" path="/cos3" reloadable="true" source="org.eclipse.jst.jee.server:cos3"/><Context docBase="blog" path="/" reloadable="true" source="org.eclipse.jst.jee.server:blog"/></Host>
 		</Engine>
 	</Service>
 </Server>

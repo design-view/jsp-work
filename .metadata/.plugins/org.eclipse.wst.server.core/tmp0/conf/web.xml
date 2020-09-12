@@ -4725,19 +4725,35 @@
     
     <!--HttpServlet타입만 NEW해줌 -->
     <!--HttpServlet CosController = new com.cos.controller.CosServlet();  -->
-	<servlet>
-		<servlet-name>frontController</servlet-name>
-		<servlet-class>com.cos2.controller.FrontController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>frontController</servlet-name>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
+	
 	 <description>MySQL Test App</description>
-  <resource-ref>
-      <description>DB Connection</description>
-      <res-ref-name>jdbc/TestDB</res-ref-name>
-      <res-type>javax.sql.DataSource</res-type>
-      <res-auth>Container</res-auth>
-  </resource-ref>
+	 <resource-ref>
+	     <description>DB Connection</description>
+	     <res-ref-name>jdbc/TestDB</res-ref-name>
+	     <res-type>javax.sql.DataSource</res-type>
+	     <res-auth>Container</res-auth>
+	 </resource-ref>
+  	<!-- 필터라는 클래스를 생성하고 filter-name 변수명을 requestEncodingFilter  요즘은 안씀!!!!!!!!!- -->
+  	<!-- org.apache.catalina.filters.SetCharacterEncodingFilter(톰켓이 들고있는 라이브러리임)를 생성해서 requestEncodingFilter에 담는다  -
+  	<filter>
+  		<filter-name>requestEncodingFilter</filter-name>
+  		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+  		
+  		<init-param>
+  			<param-name>encoding</param-name>
+  			<param-value>UTF-8</param-value>
+  		</init-param>
+  	</filter>
+   -->
+   <!-- 한글인코딩 필터등록하기  -->
+   <filter>
+   		<filter-name>CharEncFilter</filter-name>
+   		<filter-class>com.cos.blog.config.CharEncFilter</filter-class>
+   </filter>
+   <filter-mapping>
+   		<filter-name>CharEncFilter</filter-name>
+   		<url-pattern>*.do</url-pattern>
+   </filter-mapping>
+  
+  
 </web-app>
