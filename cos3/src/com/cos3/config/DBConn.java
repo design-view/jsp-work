@@ -13,8 +13,8 @@ public class DBConn {
 			Context initContext = new InitialContext();
 			Context envContext  = (Context)initContext.lookup("java:/comp/env");
 			DataSource ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			//DB에 연결된 선이다
-			Connection conn = ds.getConnection();
+			//자바와 DB에 연결된 선이다 conn(stream)이 선이다.
+			Connection conn = ds.getConnection();  //스트림
 			System.out.println("DB연결 성공");
 			return conn;
 		} catch (Exception e) {
