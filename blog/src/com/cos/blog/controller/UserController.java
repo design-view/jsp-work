@@ -9,9 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.blog.action.Action;
-import com.cos.blog.action.UserJoinProcAction;
-import com.cos.blog.action.UserLoginProcAction;
-import com.cos.blog.action.UserLogoutAction;
+import com.cos.blog.action.user.UserJoinFormAction;
+import com.cos.blog.action.user.UserJoinProcAction;
+import com.cos.blog.action.user.UserLoginFormAction;
+import com.cos.blog.action.user.UserLoginProcAction;
+import com.cos.blog.action.user.UserLogoutAction;
+import com.cos.blog.action.user.UserUpdateFormAction;
+import com.cos.blog.action.user.UserUpdateProcAction;
 
 //http://localhost:8080/blog/post/list.do
 //모든 /user 요청은 UserController를 탄다.
@@ -33,17 +37,19 @@ public class UserController extends HttpServlet {
     private Action route(String cmd) {
     	if(cmd.equals("joinForm")) {
     		//회원가입 페이지로 이동 Redirect
-    		//response.sendRedirect("/user/joinForm.jsp");
+    		return new UserJoinFormAction();
     	}else if(cmd.equals("loginForm")) {
     		//로그인 페이지로 이동 Redirect
-    		//response.sendRedirect("/user/loginForm.jsp");
+    		return new UserLoginFormAction();
     	}else if(cmd.equals("updateForm")) {
-    		//회원수정 페이지로 이동 Model로 이동 후 RequestDispatcher
+    		return new UserUpdateFormAction();
+    	}else if(cmd.equals("updateProc")) {
+    		return new UserUpdateProcAction();
     	}else if(cmd.equals("joinProc")) {
     		return new UserJoinProcAction();
     	}else if(cmd.equals("loginProc")) {
     		return new UserLoginProcAction(); 
-    	}else if(cmd.equals("logoutProc")) {
+    	}else if(cmd.equals("logout")) {
     		
     		return new UserLogoutAction();
     		//action.execute(request,response);

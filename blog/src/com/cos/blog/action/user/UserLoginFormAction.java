@@ -1,4 +1,4 @@
-package com.cos.blog.action;
+package com.cos.blog.action.user;
 
 import java.io.IOException;
 
@@ -7,16 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UserLogoutAction implements Action {
+import com.cos.blog.action.Action;
+import com.cos.blog.dao.UserDao;
+import com.cos.blog.model.User;
 
-	@Override
+public class UserLoginFormAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1.세션무효화
-		// 2.메인 페이지로 이동 Redirect
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect("/index.jsp");
-		
+		response.sendRedirect("/user/loginForm.jsp");
 	}
-
 }
