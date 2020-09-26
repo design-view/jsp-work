@@ -2,15 +2,16 @@ package com.cos.blog.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.cos.blog.model.Post;
+import com.cos.blog.action.Action;
+import com.cos.blog.action.post.PostListAction;
+import com.cos.blog.action.post.PostSaveFormAction;
+import com.cos.blog.action.post.PostSaveProcAction;
 
 //http://localhost:8080/blog/post/list.do
 //모든 .do 요청은 FrontController를 탄다.
@@ -23,10 +24,24 @@ public class PostController extends HttpServlet {
     }
     void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("/post요청됨/");
-    	String cmd = request.getParameter("cmd");
-    	if(cmd.equals("list")) {
-    		response.sendRedirect("post/list.jsp");
+    	String cmd  = request.getParameter("cmd");
+    	System.out.println(cmd);
+    	
+    	Action action = route(cmd);
+    	if(action != null) action.execute(request, response);
+    }
+    private Action route(String cmd) {
+    	if(cmd.equals("saveForm")) {
+    		//글쓰기로 이동 Redirect
+    		return new PostSaveFormAction();
+    	}else if(cmd.equals("list")) {
+    		//글보기페이지로 이동 Redirect
+    		return new PostListAction();
+    	}else if(cmd.equals("saveProc")) {
+    		//db에 글적기 
+    		return new PostSaveProcAction();
     	}
+    	return null;
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
