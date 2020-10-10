@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cos.blog.config.DBConn;
 import com.cos.blog.model.Post;
+import com.cos.blog.model.User;
 
 public class PostDao {
 	
@@ -59,6 +61,64 @@ public class PostDao {
 		}
 		return -1;
 		
+	}
+	public int 조회수증가(int id) {
+		String sql = "UPDATE post SET readCount = readCount+1 WHERE id = ?";
+		Connection conn = DBConn.getInstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			//후처리를 위해 받음 -1오류
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+		
+	}
+	public int 삭제하기(int id) {
+		String sql = "DELETE FROM post WHERE id = ?";
+		Connection conn = DBConn.getInstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			//후처리를 위해 받음 -1오류
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+		
+	}
+	public Post 상세보기(int id) {
+		String sql = "SELECT * From post Where id=?";
+		Connection conn = DBConn.getInstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);	
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				Post userEntity = new Post(
+						rs.getInt("id"),
+						rs.getString("title"),
+						rs.getString("content"),
+						rs.getInt("readCount"),
+						rs.getTimestamp("createDate"),
+						rs.getInt("userId")
+					);
+				return userEntity;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }
