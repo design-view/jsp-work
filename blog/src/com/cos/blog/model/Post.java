@@ -34,6 +34,7 @@ public class Post {
 		this.readCount = readCount;
 		this.userId = userId;
 	}
+	
 	public int getId() {
 		return id;
 	}

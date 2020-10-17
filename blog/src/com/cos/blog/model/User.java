@@ -2,6 +2,15 @@ package com.cos.blog.model;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data // Getter, Setter
+@Builder // 생성자
+@NoArgsConstructor // 기본생성자
+@AllArgsConstructor // 풀생성자
 public class User {
 	private int id; //넘버링 1,2,3,4
 	private String username;  //ssarmango
@@ -10,7 +19,7 @@ public class User {
 	private String address;
 	private Timestamp creatDate;  //auto
 	
-	
+	/*
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
@@ -36,7 +45,7 @@ public class User {
 	 * @param username
 	 * @param email
 	 * @param address
-	 */
+	 
 	public User(int id, String username, String email, String address) {
 		super();
 		this.id = id;
@@ -84,7 +93,7 @@ public class User {
 	}
 	public void setCreatDate(Timestamp creatDate) {
 		this.creatDate = creatDate;
-	}
+	}*/
 	
 	
 	

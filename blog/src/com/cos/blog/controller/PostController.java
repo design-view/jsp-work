@@ -47,6 +47,9 @@ public class PostController extends HttpServlet {
     	}else if(cmd.equals("deleteProc")) {
     		return new PostDeleteProcAction();
     	}
+    	else if(cmd.equals("updateProc")) {
+    		
+    	}
     	return null;
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -29,7 +29,7 @@ public class PostSaveProcAction implements Action {
 		Post post = new Post(
 				title,content,0,userId
 		);
-		PostDao postDao = new PostDao();
+		PostDao postDao = PostDao.getInstance(); 
 		postDao.글쓰기(post);
 		response.sendRedirect("/index.jsp");
 	}

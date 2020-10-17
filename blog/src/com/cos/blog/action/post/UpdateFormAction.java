@@ -1,7 +1,6 @@
 package com.cos.blog.action.post;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,25 +10,23 @@ import javax.servlet.http.HttpSession;
 
 import com.cos.blog.action.Action;
 import com.cos.blog.dao.PostDao;
-import com.cos.blog.dao.UserDao;
 import com.cos.blog.model.Post;
-import com.cos.blog.model.User;
 
-public class PostListAction implements Action {
+public class UpdateFormAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("PostListAction");
-		int page;
 		
-		if(request.getParameter("page")==null) {
-			page=0;
-		}else {
-			page=Integer.parseInt(request.getParameter("page"));
-		}
+		//1.세션확인
+		HttpSession session = request.getSession();
+		if(session.getAttribute("principal")==null) return;
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		
 		PostDao postDao = PostDao.getInstance(); 
-		List<Post> posts = postDao.글목록(page);
+		Post postEntity = postDao.상세보기(id);
 		
-		request.setAttribute("posts", posts);
-		RequestDispatcher dis = request.getRequestDispatcher("/post/list.jsp");
+		request.setAttribute("post", postEntity);
+		
+		RequestDispatcher dis = request.getRequestDispatcher("post/updateForm.jsp");
 		dis.forward(request, response);
 	}
 }

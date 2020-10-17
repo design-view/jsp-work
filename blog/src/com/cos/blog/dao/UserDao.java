@@ -8,25 +8,42 @@ import java.sql.SQLException;
 import com.cos.blog.config.DBConn;
 import com.cos.blog.model.User;
 
+import lombok.Builder;
+import lombok.Data;
+@Data
+@Builder
 public class UserDao {
+	private static UserDao instance = new UserDao();
+	private UserDao() {}
 	
+	public static UserDao getInstance() {
+		return instance;
+	}
 	
 	public User 로그인(User user)	{
 		String sql = "SELECT id,username,email,address From users Where username=? And password=?";
 		Connection conn = DBConn.getInstance();
 		try {
+			//prepareStatement를 사용하는 이유 ?공격을 막아줌 
 			PreparedStatement pstmt = conn.prepareStatement(sql);	
 			pstmt.setString(1, user.getUsername());
 			pstmt.setString(2, user.getPassword());
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				/*
 				User userEntity = new User(
 						rs.getInt("id"),
 						rs.getString("username"),
 						rs.getString("email"),
 						rs.getString("address")
-				);
+				);*/
+				User userEntity = User.builder()
+						.id(rs.getInt("id"))
+						.username(rs.getString("username"))
+						.email(rs.getString("email"))
+						.address(rs.getString("address"))
+						.build();
 				return userEntity;
 			}
 			

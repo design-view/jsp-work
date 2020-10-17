@@ -14,12 +14,20 @@ public class UserJoinProcAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1.회원가입 진행(insert) -> Model로 이동
 		System.out.println("UserController: joinProc:");
-
+/*
 		User user = new User(request.getParameter("username"), request.getParameter("password"),
-				request.getParameter("email"), request.getParameter("address"));
+				request.getParameter("email"), request.getParameter("address"));*/
+		
+		
+		User user = User.builder()
+				.username(request.getParameter("username"))
+				.password( request.getParameter("password"))
+				.email(request.getParameter("email"))
+				.address(request.getParameter("address"))
+				.build();
 		// 자바가 toString()이 자동으로 되도록 해놓음~
 		System.out.println(user.toString());
-		UserDao userDao = new UserDao();
+		UserDao userDao = UserDao.getInstance();
 		userDao.회원가입(user);
 		// 2.로그인페이지로 이동
 		response.sendRedirect("/user/loginForm.jsp");
